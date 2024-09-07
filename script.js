@@ -8,9 +8,17 @@ window.onload = function() {
     const durationEl = document.getElementById('duration');
     const volumeBar = document.getElementById('volume-bar');
 
-    audio.addEventListener('loadedmetadata', function() {
-        durationEl.textContent = formatTime(audio.duration);
-    });
+    function updateDuration() {
+        if (!isNaN(audio.duration)) {
+            durationEl.textContent = formatTime(audio.duration);
+        } else {
+            audio.addEventListener('loadedmetadata', function() {
+                durationEl.textContent = formatTime(audio.duration);
+            });
+        }
+    }
+
+    updateDuration();
 
     playPauseBtn.addEventListener('click', function() {
         if (audio.paused) {
@@ -28,7 +36,8 @@ window.onload = function() {
         const value = (audio.currentTime / audio.duration) * 100;
         seekBar.value = value;
 
-        currentTimeEl.textContent = formatTime(audio.currentTime);
+        const currentTime = formatTime(audio.currentTime);
+        currentTimeEl.textContent = currentTime;
     });
 
     seekBar.addEventListener('input', function() {
@@ -63,7 +72,7 @@ window.onload = function() {
                 projectListSidebar.appendChild(sidebarItem);
             });
         })
-        .catch(error => console.error('Error fetching repositories - ', error));
+        .catch(error => console.error('Error fetching repositories: ', error));
 };
 
 function toggleSidebar() {
