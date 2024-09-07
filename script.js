@@ -14,21 +14,21 @@ window.onload = function() {
 
     function updateTabText() {
         if (direction === 1) {
-            document.title = tabText.substring(0, index);
+            document.title = tabText.substring(0, index + 1);
             index++;
             if (index === tabText.length) {
                 direction = -1;
             }
         } else {
-            document.title = tabText.substring(0, index);
+            document.title = tabText.substring(0, index - 1);
             index--;
-            if (index === 1) {
+            if (index === 0) {
                 direction = 1;
             }
         }
     }
 
-    setInterval(updateTabText, 150); 
+    setInterval(updateTabText, 250);
 
     playPauseBtn.addEventListener('click', function() {
         if (audio.paused) {
@@ -45,6 +45,7 @@ window.onload = function() {
     audio.addEventListener('timeupdate', function() {
         const value = (audio.currentTime / audio.duration) * 100;
         seekBar.value = value;
+
         const currentTime = formatTime(audio.currentTime);
         currentTimeEl.textContent = currentTime;
     });
@@ -59,7 +60,8 @@ window.onload = function() {
     });
 
     audio.addEventListener('loadedmetadata', function() {
-        durationEl.textContent = formatTime(audio.duration);
+        const totalDuration = formatTime(audio.duration);
+        durationEl.textContent = totalDuration;
     });
 
     function formatTime(time) {
