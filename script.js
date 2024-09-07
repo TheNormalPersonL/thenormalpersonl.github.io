@@ -8,17 +8,27 @@ window.onload = function() {
     const durationEl = document.getElementById('duration');
     const volumeBar = document.getElementById('volume-bar');
 
-    function updateDuration() {
-        if (!isNaN(audio.duration)) {
-            durationEl.textContent = formatTime(audio.duration);
+    const tabText = "The Normal Person";
+    let index = 0;
+    let direction = 1;
+
+    function updateTabText() {
+        if (direction === 1) {
+            document.title = tabText.substring(0, index);
+            index++;
+            if (index === tabText.length) {
+                direction = -1;
+            }
         } else {
-            audio.addEventListener('loadedmetadata', function() {
-                durationEl.textContent = formatTime(audio.duration);
-            });
+            document.title = tabText.substring(0, index);
+            index--;
+            if (index === 1) {
+                direction = 1;
+            }
         }
     }
 
-    updateDuration();
+    setInterval(updateTabText, 150); 
 
     playPauseBtn.addEventListener('click', function() {
         if (audio.paused) {
@@ -35,7 +45,6 @@ window.onload = function() {
     audio.addEventListener('timeupdate', function() {
         const value = (audio.currentTime / audio.duration) * 100;
         seekBar.value = value;
-
         const currentTime = formatTime(audio.currentTime);
         currentTimeEl.textContent = currentTime;
     });
@@ -47,6 +56,10 @@ window.onload = function() {
 
     volumeBar.addEventListener('input', function() {
         audio.volume = volumeBar.value;
+    });
+
+    audio.addEventListener('loadedmetadata', function() {
+        durationEl.textContent = formatTime(audio.duration);
     });
 
     function formatTime(time) {
