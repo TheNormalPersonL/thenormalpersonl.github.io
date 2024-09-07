@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Normal Person</title>
+    <link rel="stylesheet" href="styles.css" media="none" onload="if(media!='all')media='all'">
+</head>
+<body>
+    <div class="background-png">
+        <img src="Background.png" alt="Background" id="backgroundPng">
+    </div>
+
+    <div class="menu-icon" onclick="toggleSidebar()">
+        &#9776;
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-content" id="project-list-sidebar"></div>
+    </div>
+
+    <div class="container">
+        <div class="profile-card">
+            <img src="ThousandYardStare.png" alt="Profile Avatar" class="avatar">
+            <h1 class="name">The Normal Person</h1>
+            <p class="description">Discord.js, MySQL, C#, C++, Python enthusiast</p>
+        </div>
+    </div>
+
+    <div class="music-player">
+        <button id="play-pause" class="play-pause-btn">
+            <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="white" d="M8 5v14l11-7z"></path>
+            </svg>
+            <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="display: none;">
+                <path fill="white" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+            </svg>
+        </button>
+        <input type="range" id="seek-bar" value="0" class="seek-bar">
+        <span id="current-time">0:00</span> / <span id="duration">0:00</span>
+        <div class="volume-controls">
+            <label for="volume-bar">Volume</label>
+            <input type="range" id="volume-bar" min="0" max="1" step="0.1" value="1">
+        </div>
+    </div>
+
+    <audio id="background-music" src="ItsGoingDownNow.mp3"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
