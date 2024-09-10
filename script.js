@@ -14,25 +14,20 @@ window.onload = function() {
     let index = 0;
     let direction = 1;
 
-    // Where we update the tab text
     function updateTabText() {
-        // Checks if the direction is 1
         if (direction === 1) {
-            // Starts typing the characters if the direction is 1
+            // Adds one more character at each update to simulate typing
             document.title = tabText.substring(0, index + 1);
-            index++;
-            // If the index is equal to the length of the tabs text, it changes the direction to be -1, to delete the characters slowly just as it did with typing down.
+            index++; // Move to the next character
             if (index === tabText.length) {
-                direction = -1;
+                direction = -1; // When all characters are typed, start deleting
             }
-        // If the direction isn't 1.
         } else {
-            // If the direction isn't 1, it starts slowly deleting just as it did with writing
+            // Removes one character at each update to simulate deleting
             document.title = tabText.substring(0, index - 1);
-            index--;
-            // If the index hits 0, it changes the direction to be 1
+            index--; // Move to the previous character
             if (index === 0) {
-                direction = 1;
+                direction = 1; // When all characters are deleted, start typing again
             }
         }
     }
